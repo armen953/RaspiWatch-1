@@ -78,9 +78,12 @@ export default {
           pseudo: this.name,
           password: this.password
         })
+        // this.$store.dispatch('setToken', response.data.token) // -> appeler la méthode setToken des actions
+        // this.$store.dispatch('setUser', response.data.user) // -> appeler la méthode setUser des actions
+        this.$store.dispatch('userLoggedIn', response.data.user, response.data.token) // voir dans -> store/store.js
         console.log(response.data) // a effacter
       } catch (error) {
-        this.error = 'Les informations de connexions sont incorrectes'
+        // this.error = 'Les informations de connexions sont incorrectes'
         console.log(error)
       }
     }

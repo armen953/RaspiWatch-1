@@ -30,8 +30,8 @@
       <p>RaspiWatch is a surveillance system monitoring solution</p>
 
       <div id="container-login">
-        <v-btn large color="white" class=btn-login to="/inscription">
-          <div class="btn-text">Log in</div>
+        <v-btn large color="white" class=btn-login :to="{name: 'signup'}">
+          <div class="btn-text">Se connecter</div>
           <v-icon left class=icon-login>forward</v-icon>
         </v-btn>
       </div>

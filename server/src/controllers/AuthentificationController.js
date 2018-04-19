@@ -1,45 +1,62 @@
 const {User} = require('../models')
+const jwt = require('jsonwebtoken')
+const config = require('./../../config/config')
+
+function jwtSignUser (user) {
+  const ONE_WEEK = 60 * 60 * 24 * 7 // duree de validité du token
+  return jwt.sign(user, config.authentification.jwtSecret, {
+    expiresIn: ONE_WEEK
+  })
+}
 
 module.exports = {
   async register (req, res) {
     try {
       const user = await User.create(req.body)
-      res.send(user.toJSON()) // renvoyer l'utilisateur crée -> supprimer plus tard ?????
+      const userJson = user.toJSON()
+      delete userJson['password'] // retirer le champs mot de passe pour pas l'envoyer a l'utilisateur
+      return res.send({
+        user: userJson,
+        token: jwtSignUser(userJson)
+      }) // renvoyer l'utilisateur crée -> supprimer plus tard ?????
     } catch (e) {
       // si utilisareur existe déja ou autre pb
-      res.status(400).send({
-        error: 'Email déjà utilisé'
+      console.log(e)
+      return res.status(400).send({
+        error: 'Pseudo déjà utilisé'
       })
     }
   },
   async login (req, res) {
     try {
-      const {email, password} = req.body // voir pour ajouter pseudo et date instaription (coté client)
+      const {pseudo, password} = req.body
       const user = await User.findOne({
         where: {
-          email: email
+          pseudo: pseudo
         }
       })
       if (!user) {
-        res.send(403).send({ // 403 -> auth error
+        return res.send(403).send({ // 403 -> auth error
           error: 'Les informations de connexions sont incorrectes'
         })
       }
 
-      const isPasswordValid = password === user.password
+      const isPasswordValid = user.comparePassword(password)
       if (!isPasswordValid) {
-        res.send(403).send({ // 403 -> auth error
+        return res.send(403).send({ // 403 -> auth error
           error: 'Les informations de connexions sont incorrectes'
         })
       }
       // envoyer l'utilisateur -> voir pour la partie JWT faire ici et envoyer
-      const userJson = user.toJSON
-      res.send({
-        user: userJson
+      const userJson = user.toJSON()
+      delete userJson['password'] // retirer le champs mot de passe pour pas l'envoyer a l'utilisateur
+      return res.send({
+        user: userJson,
+        token: jwtSignUser(userJson)
       })
     } catch (e) {
-      res.send(403).send({
-        error: 'Les informations de connexions sont incorrectes'
+      return res.send(500).send({
+        error: 'Une erreur est survenue au moment de la connexion'
       })
     }
   }

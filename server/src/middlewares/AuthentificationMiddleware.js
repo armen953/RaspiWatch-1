@@ -3,21 +3,21 @@ const Joi = require('joi') // permet de faire des validations -> voir doc https:
 module.exports = {
   register (req, res, next) {
     const schema = {
-      email: Joi.string().email(),
       pseudo: Joi.string(),
+      email: Joi.string().email(),
       password: Joi.string(),
       admin: Joi.boolean()
     }
 
-    const {error} = Joi.validate(req.body, schema)
+    const {error} = Joi.validate(req.body, schema, {presence: 'required'}) //  {presence: 'required'} -> tous les info dans le schema sont requis
     if (error) {
       switch (error.details[0].context.key) {
-        case 'email':
+        case 'pseudo':
           res.status(400).send({
-            error: 'Adresse email n\'est pas valide'
+            error: 'Le pseudo n\'est pas valide'
           })
           break
-        case 'pseudo':
+        case 'email':
           res.status(400).send({
             error: 'Adresse email n\'est pas valide'
           })

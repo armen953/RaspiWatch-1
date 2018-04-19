@@ -12,5 +12,8 @@ module.exports = {
       // logging: false,
       operatorsAliases: Op
     }
+  },
+  authentification: {
+    jwtSecret: process.env.JWT_SECRET || 'eyJhcm1lbiI6ImFybWVuIiwiYXJuYXVkI' // -> a changer plus tard
   }
 }

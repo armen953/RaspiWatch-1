@@ -74,17 +74,17 @@ export default {
     valid: true,
     name: '',
     nameRules: [
-      (v) => !!v || 'Name is required',
+      (v) => !!v || 'Le pseudo est requis',
       (v) => (v && v.length <= 10) || ('Le Pseudo doit faire moins de 10 caracteres')
     ],
     email: '',
     emailRules: [
-      (v) => !!v || 'E-mail is required',
+      (v) => !!v || 'E-mail est requis',
       (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail doit etre valide'
     ],
     password: '',
     passwordRules: [
-      (v) => !!v || 'Password is required'
+      (v) => !!v || 'Le mot de passe est requis'
     ],
     checkbox: false,
     e1: false,
@@ -103,13 +103,14 @@ export default {
     async register () {
       try {
         const response = await AuthentificationService.register({
-          email: this.email,
           pseudo: this.name,
+          email: this.email,
           password: this.password,
           admin: false
         })
         this.userRegistered = true
-        console.log(response.data)
+        this.error = null
+        console.log(response.data) // a effacer
       } catch (error) {
         this.error = error.response.data.error
         this.userRegistered = false

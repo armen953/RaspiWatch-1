@@ -18,13 +18,6 @@
                     required>
                   </v-text-field>
                   <v-text-field
-                    name="email"
-                    label="E-mail"
-                    v-model="email"
-                    :rules="emailRules"
-                    required>
-                  </v-text-field>
-                  <v-text-field
                     name="password"
                     label="Password"
                     v-model="password"
@@ -33,6 +26,11 @@
                     :append-icon-cb="() => (e1 = !e1)"
                     :type="e1 ? 'text' : 'password'">
                   </v-text-field>
+
+                  <v-alert type="error" :value="error==null ? false : true">
+                    {{ error }}
+                  </v-alert>
+
                   <v-btn @click="submit" :disabled="!valid" >Se connecter</v-btn>
                 </v-form>
               </v-container>
@@ -55,17 +53,12 @@ export default {
     valid: true,
     name: '',
     nameRules: [
-      (v) => !!v || 'Name is required',
+      (v) => !!v || 'Le pseudo est requis',
       (v) => (v && v.length <= 10) || ('Le Pseudo doit faire moins de 10 caracteres')
-    ],
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail doit etre valide'
     ],
     password: '',
     passwordRules: [
-      (v) => !!v || 'Password is required'
+      (v) => !!v || 'Le mot de passe est requis'
     ],
     e1: false,
     error: null
@@ -82,13 +75,13 @@ export default {
     async login () {
       try {
         const response = await AuthentificationService.login({
-          email: this.email,
           pseudo: this.name,
           password: this.password
         })
-        console.log(response.data)
+        console.log(response.data) // a effacter
       } catch (error) {
-        this.error = error.response.data.error
+        this.error = 'Les informations de connexions sont incorrectes'
+        console.log(error)
       }
     }
   }

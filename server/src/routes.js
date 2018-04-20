@@ -1,5 +1,6 @@
-const AuthentificationController = require('./controllers/AuthentificationController')
+// const VerifyTokenMiddleware = require('./middlewares/VerifyTokenMiddleware')
 const AuthentificationMiddleware = require('./middlewares/AuthentificationMiddleware')
+const AuthentificationController = require('./controllers/AuthentificationController')
 
 module.exports = (app) => {
   // delete late
@@ -9,7 +10,11 @@ module.exports = (app) => {
 
   app.post('/register',
     AuthentificationMiddleware.register, // exetute first the middleware and when the middleware call next() then exec the controller function
-    AuthentificationController.register)
+    AuthentificationController.register // le controller a appeler pour eneegistrer un utilisateur (sera appele apres que le middleware appel la fnc next())
+  )
 
-  app.post('/login', AuthentificationController.login) // pas encore fait
+  app.post('/login',
+    // VerifyTokenMiddleware, permet de proteger une route que pour ce qui ont un token valide
+    AuthentificationController.login
+  ) // pas encore fait
 }

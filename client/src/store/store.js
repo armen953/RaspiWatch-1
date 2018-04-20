@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate' // persistance of the state in localstorage (Persist Vuex state with localStorage.)
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
+  plugins: [createPersistedState()], // activate vuex-persistedstate plugin
   state: {
     token: null,
     user: null,
@@ -13,12 +15,10 @@ export default new Vuex.Store({
   mutations: {
     setToken (state, token) {
       state.token = token
+      state.isUserLoggedIn = !!(token)
     },
     setUser (state, user) {
       state.user = user
-    },
-    setIsUserLoggedIn (state, isLogged) {
-      state.isUserLoggedIn = isLogged
     }
   },
   // a partir des vue component appeler les acrions pour faire des chanagement
@@ -29,15 +29,13 @@ export default new Vuex.Store({
     setUser ({commit}, user) {
       commit('setUser', user) // appele la méthode setToken du mutation et passer en parametre le token
     },
-    userLoggedIn ({commit}, user, token) {
-      commit('setUser', user)
-      commit('setToken', token)
-      commit('setIsUserLoggedIn', true)
+    userLoggedIn ({commit}, payload) {
+      commit('setUser', payload.user)
+      commit('setToken', payload.token)
     },
-    disconnectUser ({commit}, user, token) {
+    disconnectUser ({commit}) {
       commit('setUser', null)
       commit('setToken', null)
-      commit('setIsUserLoggedIn', false)
     }
   }
 })

@@ -99,6 +99,7 @@ export default {
     },
     clear () {
       this.$refs.form.reset()
+      this.error = null
     },
     async register () {
       try {

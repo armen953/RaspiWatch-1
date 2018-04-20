@@ -36,14 +36,14 @@ module.exports = {
         }
       })
       if (!user) {
-        return res.send(403).send({ // 403 -> auth error
+        return res.status(403).send({ // 403 -> auth error
           error: 'Les informations de connexions sont incorrectes'
         })
       }
 
       const isPasswordValid = user.comparePassword(password)
       if (!isPasswordValid) {
-        return res.send(403).send({ // 403 -> auth error
+        return res.status(403).send({ // 403 -> auth error
           error: 'Les informations de connexions sont incorrectes'
         })
       }
@@ -55,7 +55,7 @@ module.exports = {
         token: jwtSignUser(userJson)
       })
     } catch (e) {
-      return res.send(500).send({
+      return res.status(500).send({
         error: 'Une erreur est survenue au moment de la connexion'
       })
     }

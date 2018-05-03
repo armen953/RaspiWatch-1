@@ -18,7 +18,7 @@
             <v-icon>face</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Inscription</v-list-tile-title>
+            <v-list-tile-title>Sign in</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -27,7 +27,7 @@
             <v-icon>lock_open</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Connexion</v-list-tile-title>
+            <v-list-tile-title>Sign up</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -36,7 +36,7 @@
             <v-icon>lock_open</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Déconnexion</v-list-tile-title>
+            <v-list-tile-title>Logout</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -50,24 +50,24 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
 
-        <v-btn flat :to="{name: 'dashboard'}">
+        <v-btn flat :to="{name: 'dashboard'}" v-if="$store.state.isUserLoggedIn">
           <v-icon left >dashboard</v-icon>
             Dashboard
         </v-btn>
 
         <v-btn flat :to="{name: 'signin'}" v-if="!$store.state.isUserLoggedIn">
           <v-icon left >face</v-icon>
-            Inscription
+            Sign in
         </v-btn>
 
         <v-btn flat :to="{name: 'signup'}" v-if="!$store.state.isUserLoggedIn">
           <v-icon left >lock_open</v-icon>
-            Connexion
+            Sign up
         </v-btn>
 
         <v-btn flat v-if="$store.state.isUserLoggedIn" @click="logout">
           <v-icon left >lock_outline</v-icon>
-            Déconnexion
+            Logout
         </v-btn>
 
       </v-toolbar-items>

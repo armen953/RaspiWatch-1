@@ -1,4 +1,4 @@
-const Joi = require('joi') // permet de faire des validations -> voir doc https://github.com/hapijs/joi
+const Joi = require('joi') // allow validations -> doc at https://github.com/hapijs/joi
 
 module.exports = {
   register (req, res, next) {
@@ -9,22 +9,22 @@ module.exports = {
       admin: Joi.boolean()
     }
 
-    const {error} = Joi.validate(req.body, schema, {presence: 'required'}) //  {presence: 'required'} -> tous les info dans le schema sont requis
+    const {error} = Joi.validate(req.body, schema, {presence: 'required'}) //  {presence: 'required'} -> every information of the scheme is required
     if (error) {
       switch (error.details[0].context.key) {
         case 'pseudo':
           res.status(400).send({
-            error: 'Le pseudo n\'est pas valide'
+            error: 'The username is invalid'
           })
           break
         case 'email':
           res.status(400).send({
-            error: 'Adresse email n\'est pas valide'
+            error: 'The email address is invalid'
           })
           break
         case 'password':
           res.status(400).send({
-            error: 'password email n\'est pas valide'
+            error: 'Uncorrect password'
           })
           break
         case 'admin':
@@ -34,12 +34,12 @@ module.exports = {
           break
         default:
           res.status(400).send({
-            error: 'Probleme essayer plus tard'
+            error: 'Something went wrong, try again later'
           })
           break
       }
     } else {
-      next() // si tout est ok passer a la suite
+      next() // if everything is ok, go next
     }
   }
 }

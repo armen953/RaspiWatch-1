@@ -23,7 +23,7 @@ module.exports = function (req, res, next) {
         if (err) {
           // Forbidden: dont let user acces
           return res.status(403).send({
-            error: 'Invalide token '
+            error: 'Invalid token '
           })
         } else {
           // ici on a le decoded data du token

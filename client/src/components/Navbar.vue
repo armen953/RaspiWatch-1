@@ -4,7 +4,7 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
-        <v-list-tile :to="{name: 'home'}" >
+        <v-list-tile :to="{name: 'dashboard'}" >
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
@@ -50,7 +50,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
 
-        <v-btn flat :to="{name: 'home'}">
+        <v-btn flat :to="{name: 'dashboard'}">
           <v-icon left >dashboard</v-icon>
             Dashboard
         </v-btn>

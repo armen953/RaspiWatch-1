@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/pages/Home'
 import Inscription from '@/components/pages/User/Inscription'
 import Connexion from '@/components/pages/User/Connexion'
+import Dashboard from '@/components/pages/User/Dashboard'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ const router = new Router({
       path: '/connexion',
       name: 'signup',
       component: Connexion
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     }
     // faire une router qui redirige les pages 404 qui sont pas trouvées
   ],

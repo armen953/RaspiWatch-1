@@ -85,9 +85,10 @@ export default {
             token: response.data.token
           }
         ) // voir dans -> store/store.js
+        this.$router.push({ name: 'dashboard' }) // redirect user to dashboard
         console.log(response.data) // a effacter
       } catch (error) {
-        // this.error = 'Les informations de connexions sont incorrectes'
+        this.error = 'Les informations de connexions sont incorrectes'
         console.log(error)
       }
     }

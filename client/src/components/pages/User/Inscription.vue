@@ -2,7 +2,7 @@
   <div id="inscription">
 
     <div id="content">
-      <h1 class="text-xs-center">Inscription</h1>
+      <h1 class="text-xs-center">Inscrire un nouveau utilisateur</h1>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <v-card>
@@ -35,10 +35,9 @@
                     :type="e1 ? 'text' : 'password'">
                   </v-text-field>
                   <v-checkbox
-                    label="Do you agree?"
+                    label="Admin ?"
                     v-model="checkbox"
-                    :rules="[v => !!v || 'You must agree to continue! ( a changer)']"
-                    required>
+                  >
                   </v-checkbox>
 
                   <v-alert type="error" :value="error==null ? false : true">
@@ -50,7 +49,7 @@
                   </v-alert>
 
                   <v-btn @click="submit" :disabled="!valid" >
-                    submit
+                    Créer utilisateur
                   </v-btn>
                   <v-btn @click="clear">clear</v-btn>
                 </v-form>
@@ -107,7 +106,7 @@ export default {
           pseudo: this.name,
           email: this.email,
           password: this.password,
-          admin: false
+          admin: this.checkbox
         })
         this.userRegistered = true
         this.error = null

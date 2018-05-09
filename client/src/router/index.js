@@ -4,6 +4,7 @@ import Home from '@/components/pages/Home'
 import Inscription from '@/components/pages/User/Inscription'
 import Connexion from '@/components/pages/User/Connexion'
 import Dashboard from '@/components/pages/Dashboard'
+import AllUsers from '@/components/pages/AllUsers'
 import page404 from '@/components/pages/errorPages/page404'
 
 import store from '@/store/store'
@@ -34,6 +35,12 @@ const router = new Router({
       path: '/inscription',
       name: 'signin',
       component: Inscription,
+      meta: {requireAuth: true, adminAuth: true, publicPage: false} // only if connected and user is admin
+    },
+    {
+      path: '/utilisateurs',
+      name: 'allUsers',
+      component: AllUsers,
       meta: {requireAuth: true, adminAuth: true, publicPage: false} // only if connected and user is admin
     },
     {

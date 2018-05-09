@@ -15,7 +15,9 @@
                     v-model="name"
                     :rules="nameRules"
                     :counter="10"
-                    required>
+                    required
+                    v-on:keyup.13="submit"
+                  >
                   </v-text-field>
                   <v-text-field
                     name="password"
@@ -24,7 +26,9 @@
                     :rules="passwordRules"
                     :append-icon="e1 ? 'visibility' : 'visibility_off'"
                     :append-icon-cb="() => (e1 = !e1)"
-                    :type="e1 ? 'text' : 'password'">
+                    :type="e1 ? 'text' : 'password'"
+                    v-on:keyup.13="submit"
+                  > <!-- submit when press eneter key (code 13) -->
                   </v-text-field>
 
                   <v-alert type="error" :value="error==null ? false : true">

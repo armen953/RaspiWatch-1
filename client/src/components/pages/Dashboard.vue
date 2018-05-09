@@ -1,14 +1,30 @@
 <template>
-  <div>
-    <div id="left" class="container">
-        <button type="button" class="menu">PRENDRE UNE PHOTO</button>
-        <button type="button" class="menu">BOUTON 2</button>
-        <button type="button" class="menu">BOUTON 3</button>
-        <button type="button" class="menu">BOUTON 4</button>
-    </div>
-    <div id="right" class="container">
-        <iframe title="Vidéo surveillance" src="https://www.youtube.com/watch?v=55_zcLkcuYw" width="600" height="450"></iframe>
-    </div>
+  <div id="dashboard">
+    <v-layout row responsive-content>
+      <v-flex xs12 sm4 flex-content >
+          <v-btn large flat dark class="red darken-1">
+            <v-icon>add_a_photo</v-icon>
+            PRENDRE UNE PHOTO
+          </v-btn>
+          <v-btn large flat dark class="red darken-1">
+            <v-icon>videocam</v-icon>
+            PRENDRE UNE PHOTO
+          </v-btn>
+          <v-btn large flat dark class="red darken-1">
+            <v-icon>videocam_off</v-icon>
+            PRENDRE UNE PHOTO
+          </v-btn>
+          <v-btn large flat dark class="red darken-1">
+            <v-icon>replay</v-icon>
+            REDEMARER CAMERA
+          </v-btn>
+      </v-flex>
+      <v-flex xs12 sm8>
+        <v-card>
+          <iframe src="https://www.youtube.com/embed/Ggq0c4e2hjA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -16,39 +32,30 @@
 export default {}
 </script>
 
-<style>
+<style scoped>
+
 iframe{
-    margin-left : 10%;
-    display:inline-block;
+  width: 100%;
+  height: 400px;
 }
-button{
-    display : block;
+.flex-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
 }
-.menu{
-    margin-top : 10%;
-    padding : 5px;
-    height: 50px;
-    width : 150px;
-    color:white;
-    background-color : rgb(229,57,53);
-    border : 1px solid rgb(255,57,53);
-    border-radius:2px;
-    transition-duration: 0.4s;
+
+.icon {
+  margin-right: 5%;
 }
-.menu:hover{
-    background-color : rgb(232,80,77);
-    box-shadow: 0 12px 16px 0 rgba(255, 57, 53, 0.24), 0 17px 50px 0 rgba(255,57,53,0.19);
+
+@media (max-width: 640px) {
+  .responsive-content {
+    flex-direction: column-reverse !important;
+  }
+  .flex-content {
+    align-items: inherit;
+  }
 }
-.container{
-    display:inline-block;
-}
-#left{
-    margin-top:5%;
-    margin-left:10%;
-    width:10%;
-}
-#right{
-    width:80%;
-    float : right;
-}
+
 </style>

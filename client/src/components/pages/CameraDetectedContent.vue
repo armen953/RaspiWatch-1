@@ -12,7 +12,9 @@
             <v-card-title primary-title>
               <div class="headline">{{ img.name }}</div>
             </v-card-title>
-            <v-card-media :src="img.url + img.id" height="200" :contain="true"></v-card-media>
+            <v-card-media :src="img.url + img.id" height="200" :contain="true">
+              <a :href="img.url + img.id" v-lightbox class="lightboxLink"></a>
+            </v-card-media>
             <v-card-actions class="flexCenter">
               <v-btn class="" download tag="a" :href="img.url + img.id" ><v-icon color="green">cloud_download</v-icon>Télécharger</v-btn>
               <v-btn class=""><v-icon color="red">delete_forever</v-icon>Supprimer</v-btn>
@@ -21,11 +23,16 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <lightbox></lightbox>
   </div>
 </template>
 
 <script>
+import Lightbox from '@/components/lightbox/Lightbox'
 export default {
+  components: {
+    Lightbox
+  },
   data () {
     return {
 
@@ -36,35 +43,35 @@ export default {
       return [{
         id: 1,
         name: 'Image 1',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 2,
         name: 'Image 2',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 3,
         name: 'Image 3',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 4,
         name: 'Image 4',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 5,
         name: 'Image 5',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 6,
         name: 'Image 6',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 7,
         name: 'Image 7',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }, {
         id: 8,
         name: 'Image 8',
-        url: 'http://lorempicsum.com/futurama/300/250/'
+        url: 'http://lorempicsum.com/futurama/800/640/'
       }]
     }
   }
@@ -72,6 +79,11 @@ export default {
 </script>
 
 <style scoped>
+
+.lightboxLink {
+  width: 100%;
+  height: 100%;
+}
 
 .flexCenter {
   display: flex;

@@ -1,0 +1,155 @@
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-color: rgba(#FFF, 0.9);
+}
+
+.lightboxImage {
+  position: fixed;
+}
+
+.lightboxClose {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: url(images/close.svg) transparent no-repeat;
+  background-size: 50px 50px;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.lightboxLoading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-left: -20px;
+  margin-top: -20px;
+  background-color: #444;
+  background-color: rgba(#000, 0.5);
+  border-radius: 40px;
+  &:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    animation: lightbox-loading 0.5s ease infinite;
+  }
+}
+
+.lightboxBtn {
+  position: fixed;
+  top: 50%;
+  width: 50px;
+  height: 90px;
+  margin-top: -40px;
+  background-color: transparent;
+  background-size: 50px 90px;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.lightboxClose, .lightboxBtn {
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.lightboxNext {
+  right: 20px;
+  background-image: url(images/rightArrow.svg)
+}
+
+.lightboxPrev {
+  left: 20px;
+  background-image: url(images/leftArrow.svg)
+}
+
+/* #region AnnimationFade*/
+.lightboxFade-enter-active, .lightboxFade-leave-enter {
+  transition: opacity 0.3s;
+}
+
+.lightboxFade-enter, .lightboxFade-leave-to {
+  opacity: 0;
+}
+/* #endregion */
+
+/* #region AnimationSlideNext*/
+.lightboxNext-enter-active, .lightboxNext-leave-active {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.lightboxNext-enter {
+  opacity: 0;
+  transform: translateX(100px)
+}
+
+.lightboxNext-leave-to {
+  opacity: 0;
+  transform: translateX(-100px)
+}
+
+.lightboxNext-enter-active {
+  transition-delay: 0.3s;
+}
+/* #endregion */
+
+/* #region AnnimationSlidePrev*/
+.lightboxPrev-enter-active, .lightboxPrev-leave-active {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.lightboxPrev-enter {
+  opacity: 0;
+  transform: translateX(-100px)
+}
+
+.lightboxPrev-leave-to {
+  opacity: 0;
+  transform: translateX(100px)
+}
+
+.lightboxPrev-enter-active {
+  transition-delay: 0.3s;
+}
+/* #endregion */
+
+/* #region KeyFrames*/
+@keyframes lightbox-loading {
+  0% {
+    opacity: 0,5;
+    transform: scale(0.75)
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1)
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.75)
+  }
+}
+/* #endregion */

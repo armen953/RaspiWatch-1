@@ -1,4 +1,4 @@
-const {User} = require('../models')
+const { User } = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('./../../config/config')
 
@@ -12,6 +12,7 @@ function jwtSignUser (user) {
 module.exports = {
   async register (req, res) {
     try {
+      console.log(req.headers['authorization']) // a delete
       const user = await User.create(req.body)
       const userJson = user.toJSON()
       delete userJson['password'] // retirer le champs mot de passe pour pas l'envoyer a l'utilisateur

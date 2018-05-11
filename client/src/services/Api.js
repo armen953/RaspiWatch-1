@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-export default () => {
+export default (token) => {
   return axios.create({
-    baseURL: `http://localhost:8280/`
+    baseURL: `http://localhost:8280/`,
+    headers: { Authorization: 'Bearer ' + token }
   })
 }

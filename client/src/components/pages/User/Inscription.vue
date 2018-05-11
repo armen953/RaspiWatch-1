@@ -107,7 +107,7 @@ export default {
           email: this.email,
           password: this.password,
           admin: this.checkbox
-        })
+        }, this.$store.state.token)
         this.userRegistered = true
         this.error = null
         console.log(response.data) // a effacer

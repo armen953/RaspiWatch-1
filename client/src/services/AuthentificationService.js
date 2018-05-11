@@ -7,8 +7,8 @@ import Api from '@/services/Api'
 // })
 
 export default {
-  register (credentials) {
-    return Api().post('register', credentials)
+  register (credentials, token) {
+    return Api(token).post('register', credentials)
   },
   login (credentials) {
     return Api().post('authenticate', credentials)

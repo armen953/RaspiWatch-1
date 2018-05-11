@@ -19,10 +19,10 @@
                 <v-checkbox v-model="editedItem.admin" label="admin"></v-checkbox>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field disabled v-model="editedItem.dateCreate" label="dateCreate"></v-text-field>
+                <v-text-field disabled v-model="editedItem.createdAt" label="createdAt"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field disabled v-model="editedItem.dateUpdates" label="dateUpdates"></v-text-field>
+                <v-text-field disabled v-model="editedItem.updatedAt" label="updatedAt"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -59,8 +59,8 @@
           <td>{{ props.item.id }}</td>
           <td class="text-xs-left">{{ props.item.pseudo }}</td>
           <td class="text-xs-center"> <v-checkbox  disabled v-model="props.item.admin"></v-checkbox></td>
-          <td class="text-xs-left">{{ props.item.dateCreate }}</td>
-          <td class="text-xs-left">{{ props.item.dateUpdates }}</td>
+          <td class="text-xs-left">{{ props.item.createdAt }}</td>
+          <td class="text-xs-left">{{ props.item.updatedAt }}</td>
           <td class="justify-center layout px-0">
             <v-btn icon class="mx-0" @click="editItem(props.item)">
               <v-icon color="teal">edit</v-icon>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-
+import UserService from '@/services/UserService'
 export default {
   data: () => ({
     search: '',
@@ -91,8 +91,8 @@ export default {
       {text: 'user', align: 'left', value: 'id'},
       { text: 'pseudo', value: 'pseudo' },
       { text: 'admin', value: 'admin' },
-      { text: 'dateCreate', value: 'dateCreate' },
-      { text: 'dateUpdates', value: 'dateUpdates' },
+      { text: 'createdAt', value: 'createdAt' },
+      { text: 'updatedAt', value: 'updatedAt' },
       { text: 'Actions', value: 'id', sortable: false }
     ],
     users: [],
@@ -101,15 +101,15 @@ export default {
       id: '',
       pseudo: 0,
       admin: 0,
-      dateCreate: 0,
-      dateUpdates: 0
+      createdAt: 0,
+      updatedAt: 0
     },
     defaultItem: {
       id: '',
       pseudo: 0,
       admin: 0,
-      dateCreate: 0,
-      dateUpdates: 0
+      createdAt: 0,
+      updatedAt: 0
     }
   }),
 
@@ -130,25 +130,23 @@ export default {
   },
 
   methods: {
-    initialize () {
-      // !!!!!! FAIRE requete au serveur pour recuperer les users et les initialiser ici (mettre en more coté serveur comme dans cette exemple, format json meme ordre)
-
-      this.users = [
-        {
-          id: 1,
-          pseudo: 'armen',
-          admin: true,
-          dateCreate: 24,
-          dateUpdates: 4.0
-        },
-        {
-          id: '2',
-          pseudo: 'arnaud',
-          admin: false,
-          dateCreate: 37,
-          dateUpdates: 4.3
-        }
-      ]
+    async initialize () {
+      try {
+        let users = await UserService.getUsers(this.$store.state.token)
+        this.users = users.data
+        console.log(users)
+      } catch (e) {
+        console.log(e)
+      }
+      // this.users = [
+      //   {
+      //     id: 1,
+      //     pseudo: 'armen',
+      //     admin: true,
+      //     createdAt: 24,
+      //     updatedAt: 4.0
+      //   }
+      // ]
     },
 
     editItem (item) {
@@ -160,10 +158,16 @@ export default {
     deleteItem (item) {
       const index = this.users.indexOf(item)
 
-      console.log('ENVOYER AU SERVEUR ET ATTENDRE LA REP (TODO) !!!!!!!!!!!!!!!!!!!')
-      console.log(this.users[index])
       // enviyer au serveur
-      confirm('Are you sure you want to delete this item?') && this.users.splice(index, 1) // faire le spilce apres la rep du serveur +, si rep - prevenir user
+      let rep = confirm('Are you sure you want to delete this item?')
+      if (rep) {
+        try {
+          UserService.deleteUser(this.users[index].pseudo, this.$store.state.token)
+          this.users.splice(index, 1) // faire le spilce apres la rep du serveur +, si rep - prevenir user
+        } catch (e) {
+          console.log('Erreur lors de la suppression', e)
+        }
+      }
     },
 
     close () {
@@ -174,14 +178,14 @@ export default {
       }, 300)
     },
 
-    save () {
+    async save () {
       if (this.editedIndex > -1) {
         Object.assign(this.users[this.editedIndex], this.editedItem)
+        let a = await UserService.updateUser(this.editedItem.pseudo, {admin: this.editedItem.admin}, this.$store.state.token)
+        console.log(a.data.message)
       } else {
         this.users.push(this.editedItem)
       }
-      console.log('ENVOYER AU SERVEUR (TODO) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-      // envoyer les donné au serveur
       this.close()
     }
   }

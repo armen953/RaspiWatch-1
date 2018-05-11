@@ -1,6 +1,11 @@
+// Middlewares
 // const VerifyTokenMiddleware = require('./middlewares/VerifyTokenMiddleware')
 const AuthentificationMiddleware = require('./middlewares/AuthentificationMiddleware')
-const AuthentificationControler = require('./controlers/AuthentificationControler')
+const VerifyAdminMiddleware = require('./middlewares/VerifyAdminMiddleware')
+
+// controllers
+const AuthentificationController = require('./controlers/AuthentificationController')
+const UserController = require('./controlers/UserController')
 
 module.exports = (app) => {
   // delete late
@@ -9,12 +14,29 @@ module.exports = (app) => {
   })
 
   app.post('/register',
+    VerifyAdminMiddleware, // permet de proteger une route que pour ceux qui ont un token valide (utilisateur connecté)
     AuthentificationMiddleware.register, // exetute first the middleware and when the middleware call next() then exec the controller function
-    AuthentificationControler.register // le controller a appeler pour eneegistrer un utilisateur (sera appele apres que le middleware appel la fnc next())
+    AuthentificationController.register // le controller a appeler pour eneegistrer un utilisateur (sera appele apres que le middleware appel la fnc next())
   )
 
   app.post('/authenticate',
-    // VerifyTokenMiddleware, permet de proteger une route que pour ce qui ont un token valide
-    AuthentificationControler.authenticate
-  ) // TO DO
+    AuthentificationController.authenticate
+  )
+
+  // route only for admin TODO: a middleware
+  app.post('/user/update/:pseudo',
+    UserController.updateUserInfo
+  )
+
+  app.delete('/user/delete/:pseudo',
+    VerifyAdminMiddleware, // auth admin marche pas ici (mais marche pour les autres)
+    UserController.deleteUser
+  )
+
+  app.get('/user/get/all',
+    VerifyAdminMiddleware,
+    UserController.getAllUsers
+  )
+
+  // route chnage password TODO: update user password (client and serveur side)
 }

@@ -5,6 +5,7 @@ import Inscription from '@/components/pages/User/Inscription'
 import Connexion from '@/components/pages/User/Connexion'
 import Dashboard from '@/components/pages/Dashboard'
 import AllUsers from '@/components/pages/AllUsers'
+import CameraDetectedContent from '@/components/pages/CameraDetectedContent'
 import page404 from '@/components/pages/errorPages/page404'
 
 import store from '@/store/store'
@@ -29,6 +30,12 @@ const router = new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: {requireAuth: true, adminAuth: false, publicPage: false} // only if conncted but dont need to be admin
+    },
+    {
+      path: '/CameraDetectedContent',
+      name: 'CameraDetectedContent',
+      component: CameraDetectedContent,
       meta: {requireAuth: true, adminAuth: false, publicPage: false} // only if conncted but dont need to be admin
     },
     {
@@ -76,7 +83,6 @@ router.beforeEach((to, from, next) => {
         next('connexion')
       }
     }
-    console.log(isUserAmin())
   }
 
   if (to.meta.requireAuth === false) { // when user is logged and whant visit pages like connexion or home page

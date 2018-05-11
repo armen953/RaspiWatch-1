@@ -74,6 +74,10 @@
               <v-icon left >group</v-icon>
               <v-list-tile-title> Liste des utilisateurs </v-list-tile-title>
             </v-list-tile>
+            <v-list-tile :to="{name: 'CameraDetectedContent'}">
+              <v-icon left >camera_front</v-icon>
+              <v-list-tile-title> Contenu détecté par la caméra </v-list-tile-title>
+            </v-list-tile>
             <v-list-tile @click="dialog = true" >
               <v-icon left >settings</v-icon>
               <v-list-tile-title> Parametres </v-list-tile-title>

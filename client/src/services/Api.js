@@ -1,8 +1,9 @@
 import axios from 'axios'
+import urlConfig from './../../urlConfig'
 
 export default (token) => {
   return axios.create({
-    baseURL: `http://localhost:8280/`,
+    baseURL: urlConfig.url,
     headers: { Authorization: 'Bearer ' + token }
   })
 }

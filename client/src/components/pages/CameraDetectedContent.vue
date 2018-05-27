@@ -30,6 +30,7 @@
 <script>
 import Lightbox from '@/components/lightbox/Lightbox'
 import ImageService from '@/services/ImageService'
+import urlConfig from './../../../urlConfig.js'
 export default {
   components: {
     Lightbox
@@ -53,7 +54,7 @@ export default {
           this.images.push({
             id: images[id].id,
             name: images[id].url,
-            url: 'http://localhost:8280/image/get/' + images[id].url
+            url: urlConfig.url + 'image/get/' + images[id].url
           })
         }
         // console.log(images.data)

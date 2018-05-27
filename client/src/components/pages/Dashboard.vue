@@ -8,11 +8,11 @@
           </v-btn>
           <v-btn large dark class="red darken-1">
             <v-icon>videocam</v-icon>
-            PRENDRE UNE PHOTO
+            Detection start
           </v-btn>
           <v-btn large dark class="red darken-1">
             <v-icon>videocam_off</v-icon>
-            PRENDRE UNE PHOTO
+            Detection stop
           </v-btn>
           <v-btn large dark class="red darken-1">
             <v-icon>replay</v-icon>
@@ -21,7 +21,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-card>
-          <iframe src="http://192.168.0.13/camera/flux/1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe :src="cameraURL+ 'camera/flux/1'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </v-card>
       </v-flex>
     </v-layout>
@@ -29,7 +29,14 @@
 </template>
 
 <script>
-export default {}
+import urlConfig from '../../../urlConfig.js'
+export default {
+  data () {
+    return {
+      cameraURL: urlConfig.cameraURL
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -47,7 +47,7 @@ module.exports = {
       // console.log(images)
       for (let id in images) {
         let filename = images[id].filename
-        filename = filename.split('/')[4] // cut / et prendre le 4 eme element car le nom du ficher est de type /var/www/motionImage/.....
+        filename = filename.split('/')[5] // cut / et prendre le 4 eme element car le nom du ficher est de type /var/www/motionImage/.....
         data.push({
           id: images[id].id,
           url: filename}

@@ -6,6 +6,7 @@ const VerifyAdminMiddleware = require('./middlewares/VerifyAdminMiddleware')
 // controllers
 const AuthentificationController = require('./controlers/AuthentificationController')
 const UserController = require('./controlers/UserController')
+const ImageController = require('./controlers/ImageController')
 
 module.exports = (app) => {
   // delete late
@@ -36,6 +37,15 @@ module.exports = (app) => {
   app.get('/user/get/all',
     VerifyAdminMiddleware,
     UserController.getAllUsers
+  )
+
+  app.get('/image/get/:name',
+    ImageController.getImageByname
+  )
+
+  app.get('/image/all',
+    // VerifyTokenMiddleware,
+    ImageController.getAllImages
   )
 
   // route chnage password TODO: update user password (client and serveur side)

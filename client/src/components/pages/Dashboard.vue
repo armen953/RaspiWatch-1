@@ -21,7 +21,7 @@
       </v-flex>
       <v-flex xs12 sm8>
         <v-card>
-          <iframe src="https://www.youtube.com/embed/Ggq0c4e2hjA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe src="http://192.168.0.13/camera/flux/1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </v-card>
       </v-flex>
     </v-layout>
@@ -35,8 +35,9 @@ export default {}
 <style scoped>
 
 iframe{
+  /* width= 800px; */
   width: 100%;
-  height: 400px;
+  height: 600px;
 }
 .flex-content {
   display: flex;

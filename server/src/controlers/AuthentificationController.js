@@ -42,7 +42,7 @@ module.exports = {
         })
       }
 
-      const isPasswordValid = user.comparePassword(password)
+      const isPasswordValid = await user.comparePassword(password)
       if (!isPasswordValid) {
         return res.status(403).send({ // 403 -> auth error
           error: 'Les informations de connexions sont incorrectes'
